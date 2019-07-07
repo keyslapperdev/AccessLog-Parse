@@ -32,12 +32,10 @@ foreach (@users) {
 	$dsn 	= "DBI:$driver:";
 	$dbh 	= DBI->connect($dsn, $dbu, $dbp) or die $err;
 	
-#	print "$user -- $up\n";	
 	main();
 }
 
 sub main {
-#	print "$user -- $up\n";
 	check_and_create_db();
 	my $directory = "/etc/apache2/logs/domlogs/$user/";
 	opendir ( DIR , $directory ) or die "[!!] Can't open $directory: $!";
@@ -194,8 +192,6 @@ sub update_metas {
         my $domain = $_[0];
         $domain =~ s/(\.|\-)/_/g;
 	
-#	$alParse{'date'} = '1969-12-31 18:00:00' if !$alParse{'date'};
-	
 	my $sth = $dbh->prepare(
 		"UPDATE ${up}_alp${monstr}.al_meta ".
 		"SET last_date='$alParse{date}' ".
@@ -205,4 +201,3 @@ sub update_metas {
 	$sth->finish or die $err;
 	$alParse{'date'} = '1969-12-31 18:00:00'
 }
-#Comment
